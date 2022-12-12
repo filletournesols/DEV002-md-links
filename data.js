@@ -36,13 +36,12 @@ const isValidURL = links => {
     const linkitos = Array.isArray(links) ? links : [links]
     const promises = linkitos.map(link => {
         return fetch(link.link).then(result => {
-            if(result.status < 400){
-                return { link, isValid: true}
-            } else {
-                return { link, isValid: false}
-            }
+                return {link, status: result.status, isValid: true}
         }).catch(err => {
-            return { link, isValid: false}
+            return { 
+                link,
+                status: err.status == undefined ? "No status": err.status,
+                isValid: false}
         })
     })
     return Promise.all(promises)
@@ -97,4 +96,19 @@ const totalBrokenLinks = (links) => {
 /* cantidad de links válidos */
 const totalValidLinks = (links) => links.filter((link)=> link.isValid).length
 
-module.exports = { getAllFilesRecursive, getLinksFromMdFiles, isValidURL, validateFlag, statsFlag, totalLinks, totalBrokenLinks, totalValidLinks, readFileFun, getLinksFromMdFile };
+const totalUniqueLinks = (links) =>{
+    const busqueda = links.reduce((acc, link) => {
+        const clave = JSON.stringify(link);
+        acc[clave] = ++acc[clave] || 0;
+        return acc;
+    }, {});
+    const duplicados = links.filter( (link) => {
+        return busqueda[JSON.stringify(link)];
+    });
+    const linksNumber = links.length 
+    const duplicadosLength = duplicados.length
+    const unique = linksNumber - duplicadosLength
+    return unique
+}
+
+module.exports = { getAllFilesRecursive, getLinksFromMdFiles, isValidURL, validateFlag, statsFlag, totalLinks, totalBrokenLinks, totalValidLinks, totalUniqueLinks, readFileFun, getLinksFromMdFile };

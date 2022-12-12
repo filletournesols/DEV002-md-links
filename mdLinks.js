@@ -1,8 +1,8 @@
-const { getAllFilesRecursive, getLinksFromMdFiles, isValidURL, validateFlag, statsFlag, totalLinks, totalBrokenLinks, totalValidLinks } = require("./data.js")
+const { getAllFilesRecursive, getLinksFromMdFiles, isValidURL, validateFlag, statsFlag, totalLinks, totalUniqueLinks, totalBrokenLinks, totalValidLinks } = require("./data.js")
 const isValid = require("is-valid-path");
 
 const mdLinks = (rutita, argumentos) => new Promise((resolve, reject) => {
-    if (!isValid(rutita)) reject("INVALID PATH")
+    if (!isValid(rutita)) {reject("INVALID PATH")}
     if(!validateFlag(argumentos) && !statsFlag(argumentos)){
         const mdFiles = getAllFilesRecursive(rutita)
         getLinksFromMdFiles(mdFiles).then(links => {
@@ -19,16 +19,18 @@ const mdLinks = (rutita, argumentos) => new Promise((resolve, reject) => {
         const mdFiles = getAllFilesRecursive(rutita)
         getLinksFromMdFiles(mdFiles).then(links => {
             const sumLinks = totalLinks(links)
-            resolve({ totalLinks: sumLinks })
+            const uniqueLinks = totalUniqueLinks(links.flat())
+            resolve({ totalLinks: sumLinks, uniqueLinks: uniqueLinks })
         })
     } else if (validateFlag(argumentos) && statsFlag(argumentos)){
         const mdFiles = getAllFilesRecursive(rutita)
         getLinksFromMdFiles(mdFiles).then(links => {
             isValidURL(links.flat()).then(link =>{
                 const sumLinks = totalLinks(link)
+                const uniqueLinks = totalUniqueLinks(link)
                 const brokenLinks = totalBrokenLinks(link)
                 const validLinks = totalValidLinks(link)
-                resolve({ totalLinks: sumLinks, validLinks: validLinks, brokenLinks: brokenLinks })
+                resolve({ totalLinks: sumLinks, uniqueLinks: uniqueLinks, validLinks: validLinks, brokenLinks: brokenLinks })
             })
         })
     }

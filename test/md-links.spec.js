@@ -24,10 +24,17 @@ describe("mdLinks ", () => {
     })
   })
 
-  it("Should get valid (isValid: true) links", () => {
+  it("Should get status", () => {
     const argumentos = ["--validate"]
     mdLinks(part1, argumentos).then((links)=>{
-      expect(links[0].isValid).toBe(true)
+      expect(links[0].status).toBe(200)
+    })
+  })
+
+  it("Should get valid URL", () => {
+    const argumentos = ["--validate"]
+    mdLinks(part1, argumentos).then((links)=>{
+      expect(links.validLinks).toBe(1)
     })
   })
 
@@ -38,10 +45,11 @@ describe("mdLinks ", () => {
     })
   })
 
-  it("Should get number of total links, valid links and broken links", () => {
+  it("Should get number of total links, uniqueLinks valid links and broken links", () => {
     const argumentos = ["--stats", "--validate"]
     mdLinks(part1, argumentos).then((links)=>{
       expect(links.totalLinks).toBe(1)
+      expect(links.uniqueLinks).toBe(1)
       expect(links.validLinks).toBe(1)
       expect(links.brokenLinks).toBe(0)
     })
