@@ -1,5 +1,5 @@
 const { mdLinks } = require("./mdLinks.js")
-const route = process.argv[1];
+const route = process.argv[2];
 const argumentos = process.argv
 
 try {
