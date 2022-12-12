@@ -3,12 +3,8 @@
   "version": "0.1.0",
   "description": "md links validator",
   "author": "filletournesols",
-  "module": "index.mjs",
-  "source": "index.js",
   "scripts": {
-    "test": "jest --verbose --coverage",
-    "build": "microbundle",
-    "start": "serve src/"
+    "test": "jest --verbose --coverage"
   },
   "engines": {
     "node": ">=16.x"
@@ -18,8 +14,6 @@
     "markdown-link-extractor": "^3.1.0"
   },
   "devDependencies": {
-    "jest": "^29.3.1",
-    "microbundle": "^0.15.1"
-  },
-  "files": ["index.js", "data.js", "mdLinks.js", "package.json", "README.md"]
+    "jest": "^29.3.1"
+  }
 }

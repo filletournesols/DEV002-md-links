@@ -1,8 +1,6 @@
 const { mdLinks } = require("../mdLinks.js");
 
-const ruta = "../mdtests"
 const part1 = "./mdtests/part1.md"
-const part4 = "./mdtests/parte2/parte3/part4.md"
 const brokenPath = "!mdtests.md"
 
 describe("mdLinks ", () => {
@@ -25,14 +23,6 @@ describe("mdLinks ", () => {
       expect(flatlinks[0]).not.toBe(null)
     })
   })
-<
-  // flatlinks:
-  // [
-  //   {
-  //     file: './mdtests/part1.md',
-  //     link: 'https://es.wikipedia.org/wiki/Markdown'
-  //   }
-  // ]
 
   it("Should get valid (isValid: true) links", () => {
     const argumentos = ["--validate"]
@@ -40,17 +30,6 @@ describe("mdLinks ", () => {
       expect(links[0].isValid).toBe(true)
     })
   })
-
-  // links
-  // [
-  //   {
-  //     link: {
-  //       file: './mdtests/part1.md',
-  //       link: 'https://es.wikipedia.org/wiki/Markdown'
-  //     },
-  //     isValid: false
-  //   }
-  // ]
 
   it("Should get number of total links", () => {
     const argumentos = ["--stats"]
