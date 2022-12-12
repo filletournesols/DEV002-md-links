@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "md links validator",
   "author": "filletournesols",
+  "bin": {
+    "md-links": "index.js"
+  },
   "scripts": {
     "test": "jest --verbose --coverage"
   },
