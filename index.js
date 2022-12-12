@@ -8,4 +8,11 @@ try {
     console.log({error})
 }
 
-/* ./mdtests */
+/* 
+./mdtests/part1.md
+./mdtests
+node index.js ./mdtests
+node index.js ./mdtests --validate
+node index.js ./mdtests --stats
+node index.js ./mdtests --validate --stats
+*/
