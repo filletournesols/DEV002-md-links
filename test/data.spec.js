@@ -1,4 +1,4 @@
-const { readFileFun, getLinksFromMdFile } = require("../data.js");
+const { readFileFun, isValidURL } = require("../data.js");
 
 const part1 = "./mdtests/part1.md"
 
@@ -11,21 +11,15 @@ describe("readFileFun", () => {
         })
     })
 
-    // it("should return error", () => {
-    //     const notFile = "mdtests.md"
-    //     readFileFun(notFile).catch((err)=>{
-    //         expect(err).toBeTruthy()
-    //     })
-    // })
-
 })
 
-// describe("getLinksFromMdFile", () => {
+describe ("isValidURL", () =>{
 
-//     it("should return error", () => {
-//         getLinksFromMdFile(part1).then((links)=>{
-//             expect(links[0]).toBe(1)
-//         })
-//     })
+    it("should get the link status", () => {
+        isValidURL(part1).then((link)=>{
+            const statusLink = link.status
+            expect(statusLink).toBe(undefined)
+        })
+    })
 
-// })
+})

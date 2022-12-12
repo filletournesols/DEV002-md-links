@@ -1,8 +1,6 @@
 const { mdLinks } = require("../mdLinks.js");
 
-const ruta = "../mdtests"
 const part1 = "./mdtests/part1.md"
-const part4 = "./mdtests/parte2/parte3/part4.md"
 const brokenPath = "!mdtests.md"
 
 describe("mdLinks ", () => {
@@ -25,32 +23,20 @@ describe("mdLinks ", () => {
       expect(flatlinks[0]).not.toBe(null)
     })
   })
-<
-  // flatlinks:
-  // [
-  //   {
-  //     file: './mdtests/part1.md',
-  //     link: 'https://es.wikipedia.org/wiki/Markdown'
-  //   }
-  // ]
 
-  it("Should get valid (isValid: true) links", () => {
+  it("Should get status", () => {
     const argumentos = ["--validate"]
     mdLinks(part1, argumentos).then((links)=>{
-      expect(links[0].isValid).toBe(true)
+      expect(links[0].status).toBe(200)
     })
   })
 
-  // links
-  // [
-  //   {
-  //     link: {
-  //       file: './mdtests/part1.md',
-  //       link: 'https://es.wikipedia.org/wiki/Markdown'
-  //     },
-  //     isValid: false
-  //   }
-  // ]
+  it("Should get valid URL", () => {
+    const argumentos = ["--validate"]
+    mdLinks(part1, argumentos).then((links)=>{
+      expect(links.validLinks).toBe(1)
+    })
+  })
 
   it("Should get number of total links", () => {
     const argumentos = ["--stats"]
@@ -59,10 +45,11 @@ describe("mdLinks ", () => {
     })
   })
 
-  it("Should get number of total links, valid links and broken links", () => {
+  it("Should get number of total links, uniqueLinks valid links and broken links", () => {
     const argumentos = ["--stats", "--validate"]
     mdLinks(part1, argumentos).then((links)=>{
       expect(links.totalLinks).toBe(1)
+      expect(links.uniqueLinks).toBe(1)
       expect(links.validLinks).toBe(1)
       expect(links.brokenLinks).toBe(0)
     })
